@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> fun(vector<int>ans,vector<vector<int>>& matrix, int i, int j){
+        for(int m=j; m<matrix[0].size()-j; m++)
+            ans.push_back(matrix[i][m]);
+        if(i+1>=matrix.size()-i || ans.size()>=matrix.size()*matrix[0].size())
+            return ans;
+        for(int m=i+1; m<matrix.size()-i; m++)
+            ans.push_back(matrix[m][matrix[0].size()-j-1]);
+        if(matrix[0].size()-j-2<j || ans.size()>=matrix.size()*matrix[0].size())
+            return ans;
+        for(int m=matrix[0].size()-j-2; m>=j; m--)
+            ans.push_back(matrix[matrix.size()-i-1][m]);
+        if(ans.size()>=matrix.size()*matrix[0].size())
+            return ans;
+        for(int m=matrix.size()-i-2; m>i; m--)
+            ans.push_back(matrix[m][j]);
+        return ans;
+    }
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector <int> ans;
+        for(int i=0, j=0; ans.size()<matrix.size()*matrix[0].size(); i++, j++) //, i1=matrix.size()-1, j1=matrix[0].size()-1; i<=i1 && j<=j1; i++, j++, i1--, j1-- )
+            ans=fun(ans, matrix, i, j);
+        return ans;
+    }
+};
